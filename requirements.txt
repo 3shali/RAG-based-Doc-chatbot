@@ -1,0 +1,8 @@
+langchain-community
+langchain
+sentence-transformers
+qdrant-client
+python-dotenv
+google-generativeai
+pyPDF2
+langchain-qdrant

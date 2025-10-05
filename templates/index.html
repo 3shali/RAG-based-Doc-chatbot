@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document Query Chatbot</title>
+    <style>
+        body { margin: 0; font-family: Arial, Helvetica, sans-serif; display: flex; height: 100vh; }
+        .sidebar { width: 25%; border-right: 1px solid #ccc; background: #f5f5f5; overflow-y: auto; padding: 20px; }
+        .main { flex: 1; overflow-y: auto; padding: 20px; }
+
+        .msg { margin-bottom: 15px; }
+        .user { font-weight: bold; color: #2c3e50; }
+        .bot { margin-left: 20px; color: #16a085; }
+
+        .section-title { font-weight: bold; margin-top: 20px; }
+
+        .context-block, .info-block { background: #ecf0f1; padding: 10px; border-radius: 5px; margin: 10px 0; white-space: pre-wrap; }
+
+        .filename { font-weight: bold; color: #8e44ad; }
+
+        textarea, input[type="text"] { width: 70%; padding: 8px; margin-top: 8px; }
+        button { padding: 8px 16px; margin-left: 4px; background: #4CAF50; border: none; color: #fff; cursor: pointer; }
+        button:hover { background: #45a049; }
+    </style>
+</head>
+<body>
+
+<!-- Sidebar: conversation history -->
+<div class="sidebar">
+    <h3>Conversation History</h3>
+    {% for msg in chat_history %}
+        <div class="msg">
+            {% if msg.type == "human" %}
+                <div class="user">{{ msg.content }}</div>
+            {% else %}
+                <div class="bot">{{ msg.content }}</div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+<!-- Main panel -->
+<div class="main">
+
+    <!-- Upload form -->
+    <h3>Upload PDF or Excel</h3>
+    <form method="POST" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".pdf,.xls,.xlsx">
+        <button type="submit">Upload</button>
+    </form>
+
+    {% if filename %}
+    <div class="info-block">
+        <span class="filename">Uploaded File:</span> {{ filename }}
+    </div>
+    {% endif %}
+
+    {% if image_text %}
+    <div class="context-block">
+        <span class="section-title">Extracted Image Texts (PDF):</span>
+        {{ image_text }}
+    </div>
+    {% endif %}
+
+    {% if table_data %}
+    <div class="context-block">
+        <span class="section-title">Excel Table Sample:</span>
+        <pre>{{ table_data }}</pre>
+    </div>
+    {% endif %}
+
+    <hr>
+
+    <!-- Question form -->
+    <h3>Ask a Question</h3>
+    <form method="POST">
+        <input type="text" name="question" placeholder="Enter your question" value="{{ question or '' }}">
+        <button type="submit">Ask</button>
+    </form>
+
+    {% if question and answer %}
+        <div class="info-block">
+            <span class="section-title">Question:</span>
+            {{ question }}
+        </div>
+
+        <div class="context-block">
+            <span class="section-title">Answer:</span>
+            <ul>
+                {% for point in answer.split('\n') if point.strip() %}
+                    <li>{{ point }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        {% if context %}
+        <div class="context-block">
+            <span class="section-title">Relevant Context (PDF):</span>
+            <pre>{{ context }}</pre>
+        </div>
+        {% endif %}
+    {% else %}
+        <p class="bot">Please upload a PDF or Excel file and ask a question.</p>
+    {% endif %}
+
+</div>
+</body>
+</html>
