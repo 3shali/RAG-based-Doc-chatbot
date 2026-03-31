@@ -19,7 +19,7 @@ Upload a **PDF or Excel file**, ask a question in plain English, and get a direc
 
 ---
 
-## 🏗️ How It Works
+## How It Works
 
 ```
 User uploads PDF/Excel
@@ -99,7 +99,7 @@ Open `http://localhost:5000` in your browser.
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 RAG-based-Doc-chatbot/
@@ -121,7 +121,7 @@ RAG-based-Doc-chatbot/
 
 ---
 
-## 👩‍💻 Author
+## Author
 
 **Thrishali Kotagiri**  
 AI & Data Science Graduate | Hyderabad, India  
