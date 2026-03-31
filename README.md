@@ -41,7 +41,7 @@ LLM generates a precise, grounded answer
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Layer | Tool |
 |---|---|
@@ -112,7 +112,7 @@ RAG-based-Doc-chatbot/
 
 ---
 
-## 🔮 Future Improvements
+## Future Improvements
 
 - [ ] Support for multi-document querying
 - [ ] Chat history / memory across turns
